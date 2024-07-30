@@ -49,7 +49,7 @@ def generate_license(
         print(check_files_result.stderr)
 
         if check_files_result.returncode != 0:
-            raise HTTPException(status_code=500, detail="许可文件生成失败。")
+            raise HTTPException(status_code=500, detail="文件生成敗。")
 
         # Create a tar.gz file
         tar_file = "/root/gen_license/lic_20241231.tgz"
@@ -63,17 +63,18 @@ def generate_license(
         print(tar_check_result.stderr)
 
         if tar_check_result.returncode != 0:
-            raise HTTPException(status_code=500, detail="Tar 文件生成失败。")
+            raise HTTPException(status_code=500, detail="Tar 文件生成失敗。")
 
-        return {"message": "许可生成成功并上传到 Redmine。"}
+        return {"message": "生成成功並上傳到 Redmine。"}
 
     except subprocess.CalledProcessError as e:
         print(f"Subprocess error: {e}")
-        raise HTTPException(status_code=500, detail=f"许可生成失败：{e}")
+        raise HTTPException(status_code=500, detail=f"License生成失敗：{e}")
 
     except Exception as e:
         print(f"General error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+    
 
 @app.get("/")
 def read_root():
